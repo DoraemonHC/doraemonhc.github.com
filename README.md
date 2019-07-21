@@ -1,68 +1,109 @@
-# MatJek
+# The Cayman theme
 
-A responsive [Material](https://material.io/) theme based on [Materialize.css](http://materializecss.com/) for jekyll sites.
+[![Build Status](https://travis-ci.org/pages-themes/cayman.svg?branch=master)](https://travis-ci.org/pages-themes/cayman) [![Gem Version](https://badge.fury.io/rb/jekyll-theme-cayman.svg)](https://badge.fury.io/rb/jekyll-theme-cayman)
 
-## Features
+*Cayman is a Jekyll theme for GitHub Pages. You can [preview the theme to see what it looks like](http://pages-themes.github.io/cayman), or even [use it today](#usage).*
 
-* Google Analytics
-* Disqus
-* [GitHub project page](https://shawnteoh.github.io/matjek/projects/)
-* [Tags](https://shawnteoh.github.io/matjek/tags/) and [Categories](https://shawnteoh.github.io/matjek/categories/)
-* Modular CSS and JS includes ([example](https://github.com/ShawnTeoh/matjek/blob/gh-pages/projects.md/))
-* [Fancy "About" page](https://shawnteoh.github.io/matjek/about)
+![Thumbnail of Cayman](thumbnail.png)
 
-## Installation
+## Usage
 
-Clone or fork this repo and edit `_config.yml` as needed.
+To use the Cayman theme:
 
-## Configuration
+1. Add the following to your site's `_config.yml`:
 
-Most of the configurations can be found in `_config.yml`. The configurations listed below are specific to MatJek. If you are not using `google_tracking_id` or `disqus_shortname`, just remove them completely.
+    ```yml
+    theme: jekyll-theme-cayman
+    ```
 
-```yaml
-github_profile: "github_profile_url"
-user: "your_name" # Appears at sidebar
-user_email: "your_email" # Appears at sidebar, remove whole variable if unwanted
-contact_url: "google_form_link"
-google_tracking_id: "google_analytics_ID"
-disqus_shortname: "shortname_given_by_Disqus"
+2. Optionally, if you'd like to preview your site on your computer, add the following to your site's `Gemfile`:
+
+    ```ruby
+    gem "github-pages", group: :jekyll_plugins
+    ```
+
+## Customizing
+
+### Configuration variables
+
+Cayman will respect the following variables, if set in your site's `_config.yml`:
+
+```yml
+title: [The title of your site]
+description: [A short description of your site's purpose]
 ```
 
-Edit the images in `assets/res` to suit your liking, but try to stick to the original resolutions.
+Additionally, you may choose to set the following optional variables:
 
-If you would like to enable comments in a post (disqus_shortname must be provided), add this line to the front matter of the post.
-
-```yaml
-comments: 1
+```yml
+show_downloads: ["true" or "false" to indicate whether to provide a download URL]
+google_analytics: [Your Google Analytics tracking ID]
 ```
 
-Add tags and categories to your posts in the front matter as well. Multiple tags/categories can be assigned but need to be separated by spaces.
+### Stylesheet
 
-```yaml
-categories: default default2
-tags: test test2
-```
+If you'd like to add your own custom styles:
+
+1. Create a file called `/assets/css/style.scss` in your site
+2. Add the following content to the top of the file, exactly as shown:
+    ```scss
+    ---
+    ---
+
+    @import "{{ site.theme }}";
+    ```
+3. Add any custom CSS (or Sass, including imports) you'd like immediately after the `@import` line
+
+*Note: If you'd like to change the theme's Sass variables, you must set new values before the `@import` line in your stylesheet.*
+
+### Layouts
+
+If you'd like to change the theme's HTML layout:
+
+1. [Copy the original template](https://github.com/pages-themes/cayman/blob/master/_layouts/default.html) from the theme's repository<br />(*Pro-tip: click "raw" to make copying easier*)
+2. Create a file called `/_layouts/default.html` in your site
+3. Paste the default layout content copied in the first step
+4. Customize the layout as you'd like
+
+### Overriding GitHub-generated URLs
+
+Templates often rely on URLs supplied by GitHub such as links to your repository or links to download your project. If you'd like to override one or more default URLs:
+
+1. Look at [the template source](https://github.com/pages-themes/cayman/blob/master/_layouts/default.html) to determine the name of the variable. It will be in the form of `{{ site.github.zip_url }}`.
+2. Specify the URL that you'd like the template to use in your site's `_config.yml`. For example, if the variable was `site.github.url`, you'd add the following:
+    ```yml
+    github:
+      zip_url: http://example.com/download.zip
+      another_url: another value
+    ```
+3. When your site is built, Jekyll will use the URL you specified, rather than the default one provided by GitHub.
+
+*Note: You must remove the `site.` prefix, and each variable name (after the `github.`) should be indent with two space below `github:`.*
+
+For more information, see [the Jekyll variables documentation](https://jekyllrb.com/docs/variables/).
+
+## Roadmap
+
+See the [open issues](https://github.com/pages-themes/cayman/issues) for a list of proposed features (and known issues).
+
+## Project philosophy
+
+The Cayman theme is intended to make it quick and easy for GitHub Pages users to create their first (or 100th) website. The theme should meet the vast majority of users' needs out of the box, erring on the side of simplicity rather than flexibility, and provide users the opportunity to opt-in to additional complexity if they have specific needs or wish to further customize their experience (such as adding custom CSS or modifying the default layout). It should also look great, but that goes without saying.
 
 ## Contributing
 
-Bug reports and pull requests are welcomed on GitHub at https://github.com/shawnteoh/matjek. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Interested in contributing to Cayman? We'd love your help. Cayman is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](docs/CONTRIBUTING.md) for instructions on how to contribute.
 
-## Development
+### Previewing the theme locally
 
-To set up your environment to develop this theme, clone/fork the repo and run `bundle install`.
+If you'd like to preview the theme locally (for example, in the process of proposing a change):
 
-To test your theme, run `bundle exec jekyll serve` and open your browser at `http://localhost:4000/matjek/`. This starts a Jekyll server using your theme. Add pages, documents, data, etc. like normal to test your theme's contents. As you make modifications to your theme and to your content, your site will regenerate and you should see the changes in the browser after a refresh, just like normal.
+1. Clone down the theme's repository (`git clone https://github.com/pages-themes/cayman`)
+2. `cd` into the theme's directory
+3. Run `script/bootstrap` to install the necessary dependencies
+4. Run `bundle exec jekyll serve` to start the preview server
+5. Visit [`localhost:4000`](http://localhost:4000) in your browser to preview the theme
 
-## License
+### Running tests
 
-The theme is available as open source under the terms of the [GPL v3 License](https://www.gnu.org/licenses/gpl-3.0.en.html).
-
-## Libraries
-* [Materialize.css](http://materializecss.com/)
-* [GeoPattern](https://github.com/btmills/geopattern/)
-* [Animate.css](https://daneden.github.io/animate.css/)
-* [Morphtext](http://morphext.fyianlai.com/)
-
-## References
-* https://github.com/DONGChuan/Yummy-Jekyll/
-* https://github.com/codinfox/codinfox-lanyon/
+The theme contains a minimal test suite, to ensure a site with the theme would build successfully. To run the tests, simply run `script/cibuild`. You'll need to run `script/bootstrap` once before the test script will work.
